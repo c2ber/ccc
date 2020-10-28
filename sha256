@@ -1,0 +1,26 @@
+import itertools
+import hashlib
+import time 
+import re
+
+start = time.time()
+
+def brute_force(hash):
+    letters = [chr(n) for n in range(ord('0'), ord('z'))]
+
+    for text_ in itertools.product(letters, repeat=4):
+        join_text = "caaJutrTYeERb9v7"+''.join(text_)
+        #print(join_text)
+
+        if hashlib.sha256(join_text.encode()).hexdigest() == hash:
+            return join_text
+
+#test_password = "0010kk"
+#key = hashlib.sha256(test_password.encode()).hexdigest()
+key = "498d9262f77f41cc372c63a6d307e86efe8ac309965d1f9583664a272ef16e27"
+
+recovered_key = brute_force(key)
+
+print("sha256 encode:", key)
+print("Brute-force result: %s" % recovered_key) 
+print("time:", time.time() - start)
